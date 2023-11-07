@@ -1,5 +1,5 @@
-#ifndef DOG_H
-#define DOG_H
+#ifndef DOG
+#define DOG
 /**
  * struct dog - Represents a dog with name, age, and owner.
  * @name: The name of the dog.
