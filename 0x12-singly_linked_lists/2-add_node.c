@@ -1,46 +1,46 @@
-#include <string.h>
-#include <stdlib.h>
 #include "lists.h"
 
 /**
- * _strlen - Length of the passed string
- * @s: String
- * Return: Returns the length of a string
-**/
-int _strlen(const char *s)
-{
-int i = 0;
-
-while (*(s + i) != '\0')
-i++;
-
-return (i);
-}
-
-/**
- * add_node - Prints length and the string, then returns amount of nodes
- * @head: Pointer to a struct constant
- * @str: haha ex di
- * Return: Returns amount of node
-**/
+ * add_node - adds a node at the beginning of the linked list
+ *
+ * @head: pointer to the first node of the list
+ * @str: string to add to new node in the list
+ *
+ * Return: NULL if it fails / starting addr of the list
+*/
 
 list_t *add_node(list_t **head, const char *str)
 {
+	list_t *new_node;
+	size_t str_len = 0;
 
-list_t *newNode;
+	/*set strig length to 0 if its NULL*/
+	if (str == NULL)
+		str_len = 0;
 
-newNode = malloc(sizeof(newNode));
-if (newNode == NULL)
-return (NULL);
-if (str == NULL)
-{
-free(newNode);
-return (NULL);
-}
-newNode->len = _strlen(str);
-newNode->str = strdup(str);
-newNode->next = *(head);
-*head = newNode;
+	/*count length of string*/
+	while (str[str_len] != '\0')
+		str_len++;
 
-return (newNode);
+	new_node = malloc(sizeof(list_t));
+	if (new_node == NULL)
+		return (NULL);
+
+	/**
+	 * initialize the next addr of new_node
+	 * to NULL if head is NULL, if it's not
+	 * move the first node to the addr of new_node
+	 * ->next hence adding new_node at the beginning
+	 *  of the list
+	*/
+	if (*head == NULL)
+		new_node->next = NULL;
+	else
+		new_node->next = *head;
+
+	new_node->str = strdup(str);
+	new_node->len = str_len;
+	*head = new_node;
+
+	return (*head);
 }
